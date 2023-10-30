@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon Gallery</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
+  </head>
+  <body>
+    <header>
+      <a class="navbar-brand" href="../../index.html">Pokemon Gallery</a>
+      <form action="../../searchresult.html" method="GET">
+        <input type="text" name="query" placeholder="Search Prefecture..." />
+        <button type="submit">Search</button>
+      </form>
+    </header>
+    <main>
+      <div class="container mt-4">
+        <h1>Pokemon Gallery</h1>
+        <section id="johto">
+          <h2>Johto Region</h2>
+          <img src="../../images/Johto.jpg" alt="Johto Prefecture" />
+          <div class="gallery">
+            <a href="chikorita-.html">
+              <br>
+              <p>Chikorita</p>
+            </a>
+            <a href="cyndaquil-.html">
+              <br><br><br>
+              <p>Cyndaquil</p>
+            </a>
+            <a href="totodile-.html">
+              <br>
+              <p>Totodile</p>
+            </a>
+            <a href="eevee-.html">
+              <br><br><br>
+              <p>Eevee</p>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="mt-4">
+      <p>&copy;2023 Mohammad Hanif Furqan Aufa Putra - GDSC Last Project</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/searchresult.js"></script>
+  </body>
+</html>

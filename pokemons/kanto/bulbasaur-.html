@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../styles/style.css">
+    <style>
+        .columns {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .pokemon-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pokemon-details {
+            text-align: left;
+        }
+
+        .evolution-chart {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="navbar-brand" href="../../index.html">Pokemon Gallery</a>
+        <form action="searchresult.html" method="GET">
+            <input type="text" name="query" placeholder="Search Prefecture...">
+            <button type="submit">Search</button>
+        </form>
+    </header>
+    <main>
+        <div class="container mt-4 center">
+            <div class="pokemon-container">
+                <div class="pokemon-details">
+                    <h1 class="pokemon-name">Bulbasaur</h1>
+                    <div id="moves" class="pokemon-moves"></div>
+                    <p id="height">Height: </p>
+                    <p id="weight">Weight: </p>
+                </div>
+                <section class="pokemon-gallery" id="kanto">
+                    <div class="gallery">
+                        <a class="container">
+                            <img class="pokemon-image" src="" alt="Bulbasaur">
+                            <p class="pokemon-name">Bulbasaur</p>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <section class="pokemon-list">
+            <ul id="pokemonList"></ul>
+        </section>
+        <section class="evolution-chart"></section>
+    </main>
+
+    <footer class="mt-4" id="foot">
+        <p>&copy;2023 Mohammad Hanif Furqan Aufa Putra - GDSC Last Project</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="scripts/searchresult.js"></script>
+    <script>
+        function capitalizeWords(str) {
+            return str.split(' ').map(function(word) {
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }).join(' ');
+        }
+
+        fetchPokemon("https://pokeapi.co/api/v2/pokemon/1");
+
+        function fetchPokemon(url) {
+            fetch(url)
+                .then(function (response) {
+                    if (response.status != 200) {
+                        console.log("Ooops.." + response.status);
+                        return;
+                    }
+                    response.json().then(function (pokemon) {
+                        displayPokemon(pokemon);
+                    });
+                })
+                .catch(function (err) {
+                    console.error(err);
+                });
+        }
+
+        function displayPokemon(pokemon) {
+            const capitalizedPokemonName = capitalizeWords(pokemon.name);
+            document.querySelector(".pokemon-name").textContent = capitalizedPokemonName;
+            document.querySelector(".pokemon-image").src = pokemon.sprites.front_default;
+
+            const movesContainer = document.getElementById("moves");
+            movesContainer.innerHTML = "<h3>Moves</h3>";
+            for (let i = 0; i < 4; i++) {
+                movesContainer.innerHTML += `<p>${capitalizeWords(pokemon.moves[i].move.name)}</p>`;
+            }
+
+            document.getElementById("height").textContent = `Height: ${pokemon.height}`;
+            document.getElementById("weight").textContent = `Weight: ${pokemon.weight}`;
+        }
+
+const pokemonUrls = [
+    "https://pokeapi.co/api/v2/pokemon/1",
+    "https://pokeapi.co/api/v2/pokemon/2",
+    "https://pokeapi.co/api/v2/pokemon/3"
+];
+
+const pokemonList = document.getElementById("pokemonList");
+
+function fetchAndDisplayPokemon(url) {
+    fetch(url)
+        .then(function (response) {
+            if (response.status != 200) {
+                console.log("Ooops.." + response.status);
+                return;
+            }
+            response.json().then(function (pokemon) {
+                const capitalizedPokemonName = capitalizeWords(pokemon.name);
+                const listItem = document.createElement("li");
+                listItem.textContent = capitalizedPokemonName;
+                listItem.addEventListener("click", function () {
+                    fetchPokemon(url);
+                });
+                pokemonList.appendChild(listItem);
+            });
+        })
+        .catch(function (err) {
+            console.error(err);
+        });
+}
+
+pokemonUrls.sort();
+
+pokemonUrls.forEach(function (url) {
+    fetchAndDisplayPokemon(url);
+});
+
+    </script>
+</body>
+</html>
